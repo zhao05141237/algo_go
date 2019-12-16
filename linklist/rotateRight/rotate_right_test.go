@@ -35,6 +35,16 @@ func rotateRight(head *singleLinkedListNoHead.ListNode, k int) *singleLinkedList
 		return head
 	}
 
+	length := 0
+	node := phead.Next
+	for ; node != nil; node = node.Next {
+		length++
+	}
+
+	if k > length {
+		k = k % length
+	}
+
 	i := 1
 	for i <= k {
 		start := phead
