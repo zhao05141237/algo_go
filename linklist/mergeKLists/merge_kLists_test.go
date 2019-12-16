@@ -16,6 +16,10 @@ import (
 	"testing"
 )
 
+/**
+执行用时 :144 ms, 在所有 golang 提交中击败了23.75%的用户
+内存消耗 :5.3 MB, 在所有 golang 提交中击败了83.11%的用户
+*/
 func mergeKLists(lists []*singleLinkedListNoHead.ListNode) *singleLinkedListNoHead.ListNode {
 	if len(lists) <= 0 {
 		return nil
