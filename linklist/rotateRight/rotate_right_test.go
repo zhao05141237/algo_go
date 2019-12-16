@@ -41,6 +41,10 @@ func rotateRight(head *singleLinkedListNoHead.ListNode, k int) *singleLinkedList
 		length++
 	}
 
+	/**
+	[1,2,3]
+	2000000000
+	*/
 	if k > length {
 		k = k % length
 	}
