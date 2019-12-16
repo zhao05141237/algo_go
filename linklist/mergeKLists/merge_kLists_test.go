@@ -17,6 +17,9 @@ import (
 )
 
 func mergeKLists(lists []*singleLinkedListNoHead.ListNode) *singleLinkedListNoHead.ListNode {
+	if len(lists) <= 0 {
+		return nil
+	}
 	if len(lists) <= 1 {
 		return lists[0]
 	}
