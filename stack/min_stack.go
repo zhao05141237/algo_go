@@ -13,7 +13,7 @@ type MinStack struct {
 func Constructor() MinStack {
 	minsk := MinStack{}
 
-	minsk.length = 10
+	minsk.length = 1000
 	minsk.count = 0
 	minsk.min = 9999999999999
 	minsk.items = make([]int, minsk.length)
@@ -71,23 +71,26 @@ func (s *MinStack) GetMin() int {
 
 func main() {
 	obj := Constructor()
-	obj.Push(2147483646)
-	obj.Push(2147483646)
-	obj.Push(2147483647)
+	obj.Push(85)
+	obj.Push(-99)
+	obj.Push(67)
+	fmt.Println(obj.GetMin())
+	obj.Push(-27)
+	obj.Push(61)
+	obj.Push(-97)
+	obj.Push(-27)
+	obj.Push(35)
 	fmt.Println(obj.Top())
-	obj.Pop()
+	obj.Push(99)
+	obj.Push(-66)
 	fmt.Println(obj.GetMin())
-	obj.Pop()
+	obj.Push(-89)
 	fmt.Println(obj.GetMin())
-	obj.Pop()
-	obj.Push(2147483647)
+	obj.Push(4)
+	obj.Push(-70)
+	fmt.Println(obj.GetMin())
+	obj.Push(52)
 	fmt.Println(obj.Top())
-	fmt.Println(obj.GetMin())
-	obj.Push(-2147483648)
-	fmt.Println(obj.Top())
-	fmt.Println(obj.GetMin())
-	obj.Pop()
-	fmt.Println(obj.GetMin())
 }
 
 /**
