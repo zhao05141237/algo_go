@@ -15,7 +15,7 @@ func Constructor() MinStack {
 
 	minsk.length = 10
 	minsk.count = 0
-	minsk.min = 999999
+	minsk.min = 9999999999999
 	minsk.items = make([]int, minsk.length)
 
 	return minsk
@@ -26,7 +26,9 @@ func (s *MinStack) Push(x int) {
 		return
 	}
 	s.items[s.count] = x
-	if x <= s.min {
+	if s.count == 0 {
+		s.min = x
+	} else if x <= s.min {
 		s.min = x
 	}
 	s.count++
@@ -69,12 +71,22 @@ func (s *MinStack) GetMin() int {
 
 func main() {
 	obj := Constructor()
-	obj.Push(-2)
-	obj.Push(0)
-	obj.Push(-3)
+	obj.Push(2147483646)
+	obj.Push(2147483646)
+	obj.Push(2147483647)
+	fmt.Println(obj.Top())
+	obj.Pop()
 	fmt.Println(obj.GetMin())
 	obj.Pop()
+	fmt.Println(obj.GetMin())
+	obj.Pop()
+	obj.Push(2147483647)
 	fmt.Println(obj.Top())
+	fmt.Println(obj.GetMin())
+	obj.Push(-2147483648)
+	fmt.Println(obj.Top())
+	fmt.Println(obj.GetMin())
+	obj.Pop()
 	fmt.Println(obj.GetMin())
 }
 
