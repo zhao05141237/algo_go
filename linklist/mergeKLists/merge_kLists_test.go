@@ -16,11 +16,91 @@ import (
 	"testing"
 )
 
+func mergeKLists(lists []*singleLinkedListNoHead.ListNode) *singleLinkedListNoHead.ListNode {
+	if len(lists) <= 0 {
+		return nil
+	}
+	if len(lists) <= 1 {
+		return lists[0]
+	}
+	var nodeSec *singleLinkedListNoHead.ListNode
+
+	listsLength := len(lists)
+
+	head := make([]*singleLinkedListNoHead.ListNode, listsLength)
+	availableCount := 0
+	for i := 0; i < listsLength; i++ {
+		if lists[i] != nil {
+			head[availableCount] = lists[i]
+			availableCount++
+		}
+	}
+
+	if availableCount == 0 {
+		return nil
+	} else if availableCount == 1 {
+		return head[0]
+	}
+
+	node1 := head[0]
+	list := head[0]
+
+	for node1 != nil {
+		gtFlag := true
+		for i := 1; i < availableCount; i++ {
+			if head[i] == nil {
+				continue
+			}
+			if node1.Val >= head[i].Val {
+				//列表2 移除该节点
+				nodeSec = head[i]
+				head[i] = nodeSec.Next
+				//插入列表1node1节点前
+				if head[0] == node1 {
+					nodeSec.Next = head[0]
+					list = nodeSec
+					head[0] = nodeSec
+					node1 = head[0]
+				} else {
+					nodeSec.Next = node1
+					head[0].Next = nodeSec
+					node1 = head[0].Next
+				}
+				//head[0] = nodeSec
+				//node1 = head[0]
+				gtFlag = false //小于 node 指针不动
+			}
+		}
+		//均小于所有结点
+		if gtFlag {
+			if node1.Next != nil {
+				head[0] = node1
+				node1 = node1.Next
+			} else {
+				nilFlag := true
+				for i := 1; i < availableCount; i++ {
+					if head[i] != nil {
+						node1.Next = head[i]
+						head[i] = nil
+						nilFlag = false
+						break
+					}
+				}
+				if nilFlag {
+					return list
+				}
+			}
+		}
+	}
+
+	return list
+}
+
 /**
 执行用时 :144 ms, 在所有 golang 提交中击败了23.75%的用户
 内存消耗 :5.3 MB, 在所有 golang 提交中击败了83.11%的用户
 */
-func mergeKLists(lists []*singleLinkedListNoHead.ListNode) *singleLinkedListNoHead.ListNode {
+func mergeKListsSlow(lists []*singleLinkedListNoHead.ListNode) *singleLinkedListNoHead.ListNode {
 	if len(lists) <= 0 {
 		return nil
 	}
