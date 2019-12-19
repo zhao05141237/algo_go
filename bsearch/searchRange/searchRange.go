@@ -69,6 +69,9 @@ func SearchRange(nums []int, target int) []int {
 			c[1] = high
 		}
 
+		if c[0] != -1 && c[1] != -1 && low > c[0] && high < c[1] {
+			break
+		}
 		if nums[mid] < target {
 			low = mid + 1
 		} else if nums[mid] > target {
