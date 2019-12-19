@@ -10,6 +10,17 @@ package searchRange
 示例 2:
 输入: nums = [5,7,7,8,8,10], target = 6
 输出: [-1,-1]
+
+执行用时 :
+12 ms
+, 在所有 golang 提交中击败了
+13.32%
+的用户
+内存消耗 :
+4.1 MB
+, 在所有 golang 提交中击败了
+60.76%
+的用户
 */
 
 func SearchRange(nums []int, target int) []int {
