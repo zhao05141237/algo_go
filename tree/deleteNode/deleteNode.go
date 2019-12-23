@@ -94,9 +94,9 @@ func moveNode(root *tree.Node, parent *tree.Node) {
 
 	node := root
 	mnode := node
-	//flagRight := false
 
 	if parent == nil {
+		//查找节点正好是根结点 并且根节点的右子树是空
 		if node.Left != nil && node.Right == nil {
 			root = node.Left
 			return
@@ -106,6 +106,7 @@ func moveNode(root *tree.Node, parent *tree.Node) {
 		}
 
 	} else {
+		//查找节点的左子树或者右子树是空的情况
 		if node.Left == nil || node.Right == nil {
 			if parent.Left == root {
 				if node.Left != nil {
@@ -128,11 +129,15 @@ func moveNode(root *tree.Node, parent *tree.Node) {
 
 	}
 
+	//从查找节点形如遍历 一直遍历到叶子节点
 	for node.Left != nil && node.Right != nil {
 		mnode = node
+		//左右子树都不为空
 		if node.Left != nil && node.Right != nil {
+			//先用左子树根节点覆盖
 			node.Val = node.Left.Val
 			node = node.Left
+			//右子树不空 可能比根结点大 这时需要移动到根结点的右子树中
 			if node.Right != nil {
 				topNode := root
 				//找到比他小的根结点 topNode
@@ -147,16 +152,13 @@ func moveNode(root *tree.Node, parent *tree.Node) {
 					topNode = topNode.Left
 				}
 				topNode.Left = node.Right
-				//if node.Left == nil{
 				node.Right = nil
-				//flagRight = false
-				//}else {
-				//	flagRight = true
-				//}
 			}
+			//左子树不空 右子结空 直接替换
 		} else if node.Left != nil {
 			node.Val = node.Left.Val
 			node = node.Left
+			//左子树空 右子结不空
 		} else if node.Right != nil {
 			topNode := root
 			//找到比他小的根结点 topNode
@@ -178,8 +180,62 @@ func moveNode(root *tree.Node, parent *tree.Node) {
 	} else {
 		mnode.Left = nil
 	}
+}
 
-	//if flagRight {
-	//	mnode.Right = nil
-	//}
+func InsertNode(root *tree.Node, k int) *tree.Node {
+	if root == nil {
+		return &tree.Node{
+			Val:   k,
+			Left:  nil,
+			Right: nil,
+		}
+	}
+
+	if root.Val < k {
+		root.Right = insertNodeC(root.Right, k)
+	}
+
+	if root.Val >= k {
+		root.Left = insertNodeC(root.Left, k)
+	}
+
+	return root
+}
+
+func insertNodeC(root *tree.Node, k int) *tree.Node {
+	if root == nil {
+		return &tree.Node{
+			Val:   k,
+			Left:  nil,
+			Right: nil,
+		}
+	}
+
+	if root.Left == nil && root.Val >= k {
+		root.Left = &tree.Node{
+			Val:   k,
+			Left:  nil,
+			Right: nil,
+		}
+		return root
+	}
+
+	if root.Right == nil && root.Val < k {
+		root.Right = &tree.Node{
+			Val:   k,
+			Left:  nil,
+			Right: nil,
+		}
+		return root
+	}
+
+	if root.Val < k {
+		root.Right = insertNodeC(root.Right, k)
+	}
+
+	if root.Val >= k {
+		root.Left = insertNodeC(root.Left, k)
+	}
+
+	return root
 }
