@@ -6,14 +6,21 @@ import (
 	"time"
 )
 
+func init() {
+	rand.Seed(time.Now().UnixNano())
+}
+
 func TestHeap_InsertData(t *testing.T) {
 	//堆排序简单版本
-	rand.Seed(time.Now().UnixNano())
 	h := NewHeap(10)
-	//建最大堆
+	//a := []int{23, 27, 30, 63, 73, 72, 67, 79, 95, 97}
+	////建最大堆
 	for i := 1; i <= 10; i++ {
 		h.InsertData(rand.Intn(100), MaxTopSort)
 	}
+	//for _, value := range a {
+	//	h.InsertData(value,MaxTopSort)
+	//}
 	h.printHeap()
 	//每次删除顶元素 循环n-1次 从而形成从有序数组
 	for i := 1; i < 10; i++ {
@@ -27,9 +34,9 @@ func TestMergedSortedData(t *testing.T) {
 	const MaxSize = 4
 	a := [MaxSize][]int{
 		{9, 10, 12, 30, 32, 32, 39, 61, 77, 87},
-		{23, 27, 30, 63, 73, 72, 67, 79, 95, 97},
+		{23, 27, 30, 63, 67, 72, 73, 79, 95, 97},
 		{1, 5, 6, 18, 24, 56, 62, 65, 88, 92},
-		{7, 15, 30, 31, 71, 56, 41, 43, 72, 97},
+		{7, 15, 30, 31, 41, 43, 56, 71, 72, 97},
 	}
 	h := NewHeap(MaxSize + 1)
 	b := make([]int, MaxSize)        //存放每个数组每次推进的位置
@@ -69,4 +76,39 @@ func TestMergedSortedData(t *testing.T) {
 	t.Log(c)
 	t.Log(len(c))
 	t.Log(cap(c))
+}
+
+//topN 以有第k个元素值
+func TestStaticDataTop(t *testing.T) {
+	k := rand.Intn(10)
+	if k == 0 {
+		k = 1
+	}
+	var a []int
+	for i := 1; i <= 10; i++ {
+		a = append(a, rand.Intn(100))
+	}
+	t.Log(a)
+	t.Log(k)
+
+	//a := []int{38, 21, 55, 2, 60, 1, 55, 6, 93, 77}
+	//k := 5
+
+	h := NewHeap(k + 1)
+
+	for index, value := range a {
+		if index < k {
+			h.InsertData(value, MinTopSort)
+		} else {
+			if value > h.a[1] {
+				h.RemoveTopData(MinTopSort)
+				h.InsertData(value, MinTopSort)
+			}
+		}
+	}
+
+	t.Logf("第%d大元素值为%d", k, h.a[1])
+	for i := 1; i <= h.count; i++ {
+		t.Log(h.a[i])
+	}
 }
