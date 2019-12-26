@@ -73,11 +73,11 @@ func heapingUptoDown(a []int, count int, sort string) {
 	RightChild := leftChild + 1
 	op := getOpBySort(sort)
 
-	for RightChild <= count && (compare(a[parent], a[leftChild], op) || compare(a[parent], a[RightChild], op)) {
+	for leftChild <= count && (compare(a[parent], a[leftChild], op) || (RightChild <= count && compare(a[parent], a[RightChild], op))) {
 		if compare(a[parent], a[leftChild], op) {
 			a[parent], a[leftChild] = a[leftChild], a[parent]
 		}
-		if compare(a[parent], a[RightChild], op) {
+		if RightChild <= count && compare(a[parent], a[RightChild], op) {
 			a[parent], a[RightChild] = a[RightChild], a[parent]
 		}
 		parent = leftChild
