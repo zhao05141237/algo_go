@@ -7,6 +7,20 @@ import (
 
 //无向图
 func TestNewUndirectedGraph(t *testing.T) {
+	/**
+	0 1,2,3,4
+	1 0,4,7,9
+	2 0
+	3 0,5,6
+	4 0,1,5
+	5 3,4
+	6 3
+	7 1,8,10
+	8 7
+	9 1
+	10 7
+	*/
+
 	undirectedGraph := &UndirectedGraph{}
 
 	undirectedGraph.NewGraph(11)
