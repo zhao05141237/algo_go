@@ -1,6 +1,9 @@
 package graph
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 //无向图
 func TestNewUndirectedGraph(t *testing.T) {
@@ -19,7 +22,9 @@ func TestNewUndirectedGraph(t *testing.T) {
 	undirectedGraph.AddEdge(4, 5)
 	undirectedGraph.AddEdge(7, 8)
 	undirectedGraph.AddEdge(7, 10)
-	//undirectedGraph.graph.Bfs()
+	fmt.Println("Bfs:")
+	undirectedGraph.graph.Bfs()
+	fmt.Println("Dfs:")
 	undirectedGraph.graph.Dfs()
 }
 
