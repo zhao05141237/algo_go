@@ -10,23 +10,46 @@ func init() {
 	rand.Seed(time.Now().UnixNano())
 }
 
+func TestHeap_InsertData2(t *testing.T) {
+	a := []int{78, 14, 50, 20, 13, 9, 25, 8, 13, 37, 29, 33, 55, 52, 6, 17, 65, 23, 74, 43, 5, 29, 29, 72, 7, 13, 56, 21, 31, 66, 69, 69, 74, 12, 77, 23, 10, 6, 27, 63, 77, 21, 40, 10, 19, 59, 35, 40, 44, 4, 15, 29}
+	h := NewHeap(len(a) + 1)
+
+	for _, value := range a {
+		h.InsertData(value, MaxTopSort)
+	}
+
+	for i := 1; i < len(a); i++ {
+		h.RemoveTopData(MaxTopSort)
+	}
+	h.PrintHeap()
+	//t.Log(h.a)
+	//quickSort.QuickSort(a)
+	//t.Log(a)
+	//length := len(a)
+	//if length % 2 == 0 {
+	//	t.Log((float64(a[length/2 - 1]) + float64(a[length/2])) / float64(2))
+	//}else {
+	//	t.Log(a[length/2+1])
+	//}
+}
+
 func TestHeap_InsertData(t *testing.T) {
 	//堆排序简单版本
-	h := NewHeap(10)
+	h := NewHeap(51)
 	//a := []int{23, 27, 30, 63, 73, 72, 67, 79, 95, 97}
 	////建最大堆
-	for i := 1; i <= 10; i++ {
+	for i := 1; i <= 50; i++ {
 		h.InsertData(rand.Intn(100), MaxTopSort)
 	}
 	//for _, value := range a {
 	//	h.InsertData(value,MaxTopSort)
 	//}
-	h.printHeap()
+	h.PrintHeap()
 	//每次删除顶元素 循环n-1次 从而形成从有序数组
-	for i := 1; i < 10; i++ {
+	for i := 1; i < 50; i++ {
 		h.RemoveTopData(MaxTopSort)
 	}
-	h.printHeap()
+	h.PrintHeap()
 }
 
 func TestMergedSortedData(t *testing.T) {

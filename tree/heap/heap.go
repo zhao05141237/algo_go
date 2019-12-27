@@ -35,10 +35,10 @@ func (h *Heap) InsertData(data int, sort string) {
 	parent := h.count / 2
 	i := h.count
 
-	op := getOpBySort(sort)
+	op := GetOpBySort(sort)
 
 	for parent > 0 {
-		if compare(h.a[parent], h.a[i], op) {
+		if Compare(h.a[parent], h.a[i], op) {
 			//子节点大于父节点 则交换两个节点
 			h.a[parent], h.a[i] = h.a[i], h.a[parent]
 			i = parent
@@ -64,29 +64,28 @@ func (h *Heap) RemoveTopData(sort string) {
 	h.a[1], h.a[h.count] = h.a[h.count], h.a[1]
 	h.count--
 	//从顶至下最大化
-	heapingUptoDown(h.a, h.count, sort)
+	HeapingUptoDown(h.a, h.count, sort)
 }
 
-func heapingUptoDown(a []int, count int, sort string) {
-	parent := 1
-	leftChild := 2 * parent
-	RightChild := leftChild + 1
-	op := getOpBySort(sort)
-
-	for leftChild <= count && (compare(a[parent], a[leftChild], op) || (RightChild <= count && compare(a[parent], a[RightChild], op))) {
-		if compare(a[parent], a[leftChild], op) {
-			a[parent], a[leftChild] = a[leftChild], a[parent]
+func HeapingUptoDown(a []int, count int, sort string) {
+	op := GetOpBySort(sort)
+	for parent := 1; parent <= count/2; {
+		index := parent
+		if Compare(a[parent], a[parent*2], op) {
+			index = parent * 2
 		}
-		if RightChild <= count && compare(a[parent], a[RightChild], op) {
-			a[parent], a[RightChild] = a[RightChild], a[parent]
+		if 2*parent+1 <= count && Compare(a[index], a[parent*2+1], op) {
+			index = parent*2 + 1
 		}
-		parent = leftChild
-		leftChild = 2 * parent
-		RightChild = leftChild + 1
+		if index == parent {
+			break
+		}
+		a[parent], a[index] = a[index], a[parent]
+		parent = index
 	}
 }
 
-func compare(left int, right int, op string) bool {
+func Compare(left int, right int, op string) bool {
 	switch op {
 	case ">":
 		return left > right
@@ -101,7 +100,7 @@ func compare(left int, right int, op string) bool {
 	}
 }
 
-func getOpBySort(sort string) string {
+func GetOpBySort(sort string) string {
 	op := "<"
 	if sort == MinTopSort {
 		op = ">"
@@ -109,6 +108,6 @@ func getOpBySort(sort string) string {
 	return op
 }
 
-func (h *Heap) printHeap() {
+func (h *Heap) PrintHeap() {
 	fmt.Println(h.a)
 }
