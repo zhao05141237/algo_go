@@ -14,6 +14,33 @@ func (node *ListNode) CreateNode(val int) *ListNode {
 	}
 }
 
+func (node *ListNode) InsertIntoList(a int) *ListNode {
+	tmpNode := node.CreateNode(a)
+	if node == nil {
+		return tmpNode
+	}
+	p := node
+	for p.Next != nil {
+		p = p.Next
+	}
+	p.Next = tmpNode
+	return node
+}
+
+func (node *ListNode) FindValInList(a int) bool {
+	if node == nil {
+		return false
+	}
+	p := node
+	for p != nil {
+		if p.Val == a {
+			return true
+		}
+		p = p.Next
+	}
+	return false
+}
+
 func (node *ListNode) CreateList(a []int) *ListNode {
 	var l *ListNode
 	var p *ListNode
@@ -23,7 +50,7 @@ func (node *ListNode) CreateList(a []int) *ListNode {
 		if index == 0 {
 			l = tmpNode
 			p = l
-		} else{
+		} else {
 			p.Next = tmpNode
 			p = p.Next
 		}

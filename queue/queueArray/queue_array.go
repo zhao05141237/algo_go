@@ -46,6 +46,10 @@ func (a *ArrayQueue) DeQueue() interface{} {
 	return v
 }
 
+func (a *ArrayQueue) IsEmpty() bool {
+	return a.head == a.tail
+}
+
 func (a *ArrayQueue) String() string {
 	if a.head == a.tail {
 		return "empty queue"
