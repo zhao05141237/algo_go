@@ -38,7 +38,7 @@ func TestBmGenerateGs(t *testing.T) {
 }
 
 func TestGetNextGs(t *testing.T) {
-	pattern := "abxabwabxad"
+	pattern := "abab"
 	t.Log(getNextGs(pattern))
 }
 
